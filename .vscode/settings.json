@@ -45,7 +45,10 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "a.out.h": "c",
+        "hash_map": "cpp",
+        "list": "cpp"
     },
     "python.pythonPath": "/usr/bin/python3"
 }
