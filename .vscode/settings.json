@@ -48,7 +48,8 @@
         "iomanip": "cpp",
         "a.out.h": "c",
         "hash_map": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "set": "cpp"
     },
     "python.pythonPath": "/usr/bin/python3"
 }
