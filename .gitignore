@@ -6,4 +6,7 @@
 
 # The dummy files
 dummy.*
-a.out
+
+# Executables
+*.out
+*.exe
