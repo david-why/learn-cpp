@@ -10,3 +10,6 @@ dummy.*
 # Executables
 *.out
 *.exe
+
+# Input files
+*.in
