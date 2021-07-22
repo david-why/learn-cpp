@@ -114,8 +114,6 @@ int main()
     {
         orig[i] = nums[i] = rand();
     }
-    //for (int i = 0; i < n; i++)
-    //    orig[i] = nums[i] = n - i;
     switch (t)
     {
     case 1:
