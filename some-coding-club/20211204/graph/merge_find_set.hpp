@@ -4,42 +4,69 @@
 #include <set>
 #include <type_traits>
 
-template <typename KeyType, size_t N>
-class sized_merge_find_set
+template <typename tp, size_t N>
+class mfset
 {
-    typedef typename std::enable_if<std::is_integral<KeyType>::value>::type _IsIntegral;
-    KeyType par[N];
+    typename std::enable_if<std::is_integral<tp>::value, tp>::type par[N];
+    size_t g;
+
+public:
+    inline mfset() : g(N)
+    {
+        for (tp i = 0; i < N; i++)
+            par[i] = i;
+    }
+
+    inline tp find(tp k) const
+    {
+        return par[k] == k ? k : (par[k] = find(par[k]));
+    }
+    inline void merge(tp a, tp b)
+    {
+        tp x = find(a), y = find(b);
+        if (x != y)
+        {
+            par[x] = y;
+            g--;
+        }
+    }
+    inline bool connected(tp a, tp b) const
+    {
+        return find(a) == find(b);
+    }
+    inline size_t groups() const
+    {
+        return g;
+    }
 };
 
-template <typename KeyType>
+template <typename tp>
 class merge_find_set
 {
-    std::map<KeyType, KeyType> parent;
-    inline void _ensure(const KeyType &k)
+    std::unordered_map<tp, tp> parent;
+    inline void _ensure(const tp &k)
     {
         auto it = parent.find(k);
         if (it == parent.end())
             parent[k] = k;
     }
 
-    inline const KeyType &_find(const KeyType &k)
+public:
+    inline const tp &find(const tp &k)
     {
         auto it = parent.find(k);
         if (it->second == k)
             return k;
         else
-            return (it->second = _find(it->second));
+            return (it->second = find(it->second));
     }
-
-public:
-    inline void connect(const KeyType &a, const KeyType &b)
+    inline void merge(const tp &a, const tp &b)
     {
-        parent[_find(a)] = _find(b);
+        parent[find(a)] = find(b);
     }
-
-    inline bool connected(const KeyType &a, const KeyType &b)
+    inline bool connected(const tp &a, const tp &b)
     {
-        return _find(a) == _find(b);
+        return find(a) == find(b);
     }
 };
 #endif

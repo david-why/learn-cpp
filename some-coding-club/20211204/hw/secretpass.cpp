@@ -1,4 +1,5 @@
 // https://codeforces.com/problemset/problem/1263/D
+// Accepted; #138038417, 234 ms, 796 KB
 
 #include <bits/stdc++.h>
 
