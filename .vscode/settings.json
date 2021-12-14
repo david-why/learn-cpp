@@ -55,7 +55,16 @@
         "stack": "cpp",
         "queue": "cpp",
         "cassert": "cpp",
-        "bitset": "cpp"
+        "bitset": "cpp",
+        "any": "cpp",
+        "charconv": "cpp",
+        "chrono": "cpp",
+        "complex": "cpp",
+        "future": "cpp",
+        "mutex": "cpp",
+        "regex": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp"
     },
     "python.pythonPath": "/usr/bin/python3"
 }
