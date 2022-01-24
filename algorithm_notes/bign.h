@@ -1,7 +1,7 @@
 #include <exception>
 #include <string>
-#ifndef __BIGN_DIGITS
-#define __BIGN_DIGITS 100
+#ifndef BIGN_DIGITS
+#define BIGN_DIGITS 100
 #endif
 /**
  * Big numbers calculation/initiation failure.
@@ -50,7 +50,7 @@ struct fraction
 };
 struct bign
 {
-    short n[__BIGN_DIGITS];
+    short n[BIGN_DIGITS];
     long long l;
     bign(short *n, long long l);
     bign(long long n);
@@ -108,10 +108,11 @@ std::istream &operator>>(std::istream &in, bign &n);
 /**
  * Fraction output.
  */
-std::ostream &operator<<(std::ostream &out, fraction<int> f);
-std::ostream &operator<<(std::ostream &out, fraction<long> f);
-std::ostream &operator<<(std::ostream &out, fraction<long long> f);
-std::ostream &operator<<(std::ostream &out, fraction<float> f);
-std::ostream &operator<<(std::ostream &out, fraction<double> f);
-std::ostream &operator<<(std::ostream &out, fraction<long double> f);
-std::ostream &operator<<(std::ostream &out, fraction<bign> f);
+template <typename T> std::ostream &operator<<(std::ostream &out, fraction<T> f);
+//std::ostream &operator<<(std::ostream &out, fraction<int> f);
+//std::ostream &operator<<(std::ostream &out, fraction<long> f);
+//std::ostream &operator<<(std::ostream &out, fraction<long long> f);
+//std::ostream &operator<<(std::ostream &out, fraction<float> f);
+//std::ostream &operator<<(std::ostream &out, fraction<double> f);
+//std::ostream &operator<<(std::ostream &out, fraction<long double> f);
+//std::ostream &operator<<(std::ostream &out, fraction<bign> f);

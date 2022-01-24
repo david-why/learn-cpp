@@ -82,10 +82,10 @@ fraction<T> fraction<T>::add(fraction<T> a, fraction<T> b)
 
 bign::bign(short *n, long long l)
 {
-    if (l > __BIGN_DIGITS)
+    if (l > BIGN_DIGITS)
         throw OverflowException();
     memcpy(this->n, n, sizeof(short) * l);
-    memset(this->n + l, 0, sizeof(short) * (__BIGN_DIGITS - l));
+    memset(this->n + l, 0, sizeof(short) * (BIGN_DIGITS - l));
     this->l = l;
 }
 bign::bign(long long n)
@@ -96,7 +96,7 @@ bign::bign(long long n)
         this->n[(this->l)++] = n % 10;
         n /= 10;
     }
-    memset(this->n + l, 0, sizeof(short) * (__BIGN_DIGITS - this->l));
+    memset(this->n + l, 0, sizeof(short) * (BIGN_DIGITS - this->l));
 }
 bign::bign(long n)
 {
@@ -106,7 +106,7 @@ bign::bign(long n)
         this->n[(this->l)++] = n % 10;
         n /= 10;
     }
-    memset(this->n + l, 0, sizeof(short) * (__BIGN_DIGITS - this->l));
+    memset(this->n + l, 0, sizeof(short) * (BIGN_DIGITS - this->l));
 }
 bign::bign(int n)
 {
@@ -116,7 +116,7 @@ bign::bign(int n)
         this->n[(this->l)++] = n % 10;
         n /= 10;
     }
-    memset(this->n + l, 0, sizeof(short) * (__BIGN_DIGITS - this->l));
+    memset(this->n + l, 0, sizeof(short) * (BIGN_DIGITS - this->l));
 }
 bign::bign(short n)
 {
@@ -126,7 +126,7 @@ bign::bign(short n)
         this->n[(this->l)++] = n % 10;
         n /= 10;
     }
-    memset(this->n + l, 0, sizeof(short) * (__BIGN_DIGITS - this->l));
+    memset(this->n + l, 0, sizeof(short) * (BIGN_DIGITS - this->l));
 }
 bign::bign(const char *str)
 {
@@ -135,7 +135,7 @@ bign::bign(const char *str)
     {
         this->n[i] = str[this->l - i - 1] - '0';
     }
-    memset(this->n + l, 0, sizeof(short) * (__BIGN_DIGITS - this->l));
+    memset(this->n + l, 0, sizeof(short) * (BIGN_DIGITS - this->l));
 }
 bign::bign(char *str)
 {
@@ -144,7 +144,7 @@ bign::bign(char *str)
     {
         this->n[i] = str[this->l - i - 1] - '0';
     }
-    memset(this->n + l, 0, sizeof(short) * (__BIGN_DIGITS - this->l));
+    memset(this->n + l, 0, sizeof(short) * (BIGN_DIGITS - this->l));
 }
 bign::bign()
 {
@@ -192,7 +192,7 @@ std::string bign::toString()
 }
 void bign::pow10(long long n)
 {
-    if (this->l + n > __BIGN_DIGITS)
+    if (this->l + n > BIGN_DIGITS)
         throw OverflowException();
     if (n == 0)
         return;
@@ -492,37 +492,8 @@ std::istream &operator>>(std::istream &in, bign &n)
 /**
  * Fraction output.
  */
-std::ostream &operator<<(std::ostream &out, fraction<int> f)
-{
-    out << f.n << "/" << f.d;
-    return out;
-}
-std::ostream &operator<<(std::ostream &out, fraction<long> f)
-{
-    out << f.n << "/" << f.d;
-    return out;
-}
-std::ostream &operator<<(std::ostream &out, fraction<long long> f)
-{
-    out << f.n << "/" << f.d;
-    return out;
-}
-std::ostream &operator<<(std::ostream &out, fraction<float> f)
-{
-    out << f.n << "/" << f.d;
-    return out;
-}
-std::ostream &operator<<(std::ostream &out, fraction<double> f)
-{
-    out << f.n << "/" << f.d;
-    return out;
-}
-std::ostream &operator<<(std::ostream &out, fraction<long double> f)
-{
-    out << f.n << "/" << f.d;
-    return out;
-}
-std::ostream &operator<<(std::ostream &out, fraction<bign> f)
+template <typename T>
+std::ostream &operator<<(std::ostream &out, fraction<T> f)
 {
     out << f.n << "/" << f.d;
     return out;
