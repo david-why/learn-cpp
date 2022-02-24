@@ -1,0 +1,5 @@
+容斥原理：
+S = all conditions
+O(2^n):  |\intersect{i \memberof S}(Ai)| = \sum{T \subsetof S}((-1)^(\sizeof T)*|\intersect{i \memberof T}(\not Ai)|)
+or
+O(n):    \sum{i=0..|S|}((-1)^i*C(|S|,i)*(...))
