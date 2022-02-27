@@ -24,10 +24,6 @@ int main()
                 for (int t3 = 0; t3 < 3; t3++)
                     if (num[i] >= t1 + t2 + t3)
                         dp[i][t2][t3] = max(dp[i][t2][t3], dp[i - 1][t1][t2] + (num[i] - t1 - t2 - t3) / 3 + t3);
-    int ans = 0;
-    for (int t1 = 0; t1 < 3; t1++)
-        for (int t2 = 0; t2 < 3; t2++)
-            ans += dp[n + 1][t1][t2];
     cout << dp[m][0][0] << endl;
     return 0;
 }
