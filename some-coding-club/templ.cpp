@@ -2,6 +2,8 @@
 using namespace std;
 typedef long long ll;
 typedef unsigned long long ull;
+const int __speedup = []()
+{ cin.tie(0); ios::sync_with_stdio(false); return 0; }();
 class reader
 {
     template <typename T>
@@ -32,7 +34,7 @@ public:
         return *this;
     }
     template <typename T, typename I>
-    typename enable_if<!is_pair<T>::value, reader &>::type operator>>(pair<T *, I> p)
+    enable_if<!is_pair<T>::value, reader &> operator>>(pair<T *, I> p)
     {
         while (--p.second)
             operator>>(*p.first++);
@@ -44,8 +46,9 @@ public:
         if (p.second < 0)
         {
             p.second = -p.second;
-            for (I i = 0; i < p.second; i++)
-                operator>>((p.first + i)->first);
+            I v = p.second;
+            while (v--)
+                operator>>((p.first + p.second - v - 1)->first);
             while (p.second--)
                 operator>>((p.first++)->second);
             return *this;
@@ -92,7 +95,7 @@ public:
 } out;
 void nl(writer &wr) { wr << "\n"; }
 //     Const definitions >>>
-const int maxn = 2e5 + 7, mod = 998244353;
+const int maxn = 1e5, mod = 1e9 + 7;
 // <<< Const definitions
 template <typename T>
 void add(T &a, ll b) { a = (b + a) % mod; }
@@ -101,37 +104,13 @@ void upmin(T &a, T b) { a = min(a, b); }
 template <typename T>
 void upmax(T &a, T b) { a = max(a, b); }
 // -=-=-=-=-=-=-=-=-=-=-=-
-ll dp[maxn];
-bool v[maxn];
-pair<int, int> c[maxn];
-ll calc(int i)
-{
-    if (i == 1)
-        return 1;
-    if (i == 2)
-        return 3;
-    return (dp[i - 1] + dp[i - 3]) % mod;
-}
 int main()
 {
+    pair<int, int> ps[10];
     int n;
-    in >> n >> make_pair(c + 1, -n);
-    sort(c + 1, c + 1 + n);
-    dp[0] = 1;
-    dp[1] = 2;
-    for (int i = 2; i <= n; i++)
-        dp[i] = (dp[i - 1] + dp[i - 2]) % mod;
-    ll ans = 1;
-    for (int i = 1; i <= n; i++)
-    {
-        if (v[i])
-            continue;
-        int len = 0;
-        int cur = i;
-        while (!v[cur])
-            v[cur] = true, cur = c[cur].second, len++;
-        ans = ans * calc(len) % mod;
-    }
-    out << ans << nl;
+    in >> n >> make_pair(ps, -n);
+    for (int i = 0; i < n; i++)
+        out << ps[i] << nl;
+
     return 0;
 }
