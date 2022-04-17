@@ -2,8 +2,6 @@
 using namespace std;
 typedef long long ll;
 typedef unsigned long long ull;
-const int __speedup = []()
-{ cin.tie(0); ios::sync_with_stdio(false); return 0; }();
 class reader
 {
     template <typename T>
@@ -34,7 +32,7 @@ public:
         return *this;
     }
     template <typename T, typename I>
-    enable_if<!is_pair<T>::value, reader &> operator>>(pair<T *, I> p)
+    typename enable_if<!is_pair<T>::value, reader &>::type operator>>(pair<T *, I> p)
     {
         while (--p.second)
             operator>>(*p.first++);
@@ -46,9 +44,8 @@ public:
         if (p.second < 0)
         {
             p.second = -p.second;
-            I v = p.second;
-            while (v--)
-                operator>>((p.first + p.second - v - 1)->first);
+            for (I i = 0; i < p.second; i++)
+                operator>>((p.first + i)->first);
             while (p.second--)
                 operator>>((p.first++)->second);
             return *this;
