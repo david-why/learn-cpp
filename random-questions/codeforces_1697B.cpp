@@ -1,10 +1,11 @@
 #include <bits/stdc++.h>
 
 using namespace std;
+typedef long long ll;
 
 const int maxn = 2e5 + 5;
-int a[maxn];
-int suf[maxn];
+ll a[maxn];
+ll suf[maxn];
 
 int main() {
     int p, q;
