@@ -2,16 +2,19 @@
 
 using namespace std;
 
-const int maxn = 100 + 5;
+const int maxn = 2e5 + 5;
 int a[maxn];
+int suf[maxn];
 
 int main() {
-    int t;
-    cin >> t;
-    while (t--) {
-        int n, m, s=0;
-        cin >> n >> m;
-        for (int i = 1; i <= n; i++) cin >> a[i], s += a[i];
-        cout << max(0, s-m) << endl;
+    int p, q;
+    cin >> p >> q;
+    for (int i = 1; i <= p; i++) cin >> a[i];
+    sort(a+1, a+p+1);
+    for (int i = p; i >= 1; i--) suf[i] = suf[i+1] + a[i];
+    while (q--) {
+        int x, y;
+        cin >> x >> y;
+        cout << suf[p-x+1] - suf[p-x+y+1] << endl;
     }
 }
