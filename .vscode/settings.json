@@ -64,7 +64,12 @@
         "mutex": "cpp",
         "regex": "cpp",
         "typeindex": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "ranges": "cpp",
+        "ratio": "cpp",
+        "shared_mutex": "cpp",
+        "span": "cpp",
+        "stop_token": "cpp"
     },
     "python.pythonPath": "/usr/bin/python3"
 }
