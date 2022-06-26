@@ -2,6 +2,8 @@
 using namespace std;
 typedef long long ll;
 typedef unsigned long long ull;
+#define pb push_back
+#define mp make_pair
 class reader
 {
     template <typename T>
@@ -20,6 +22,7 @@ public:
         scanf("%" #iden, &v);  \
         return *this;          \
     }
+    READ(char, c)
     READ(int, d)
     READ(ll, lld)
     READ(double, lf)
@@ -32,9 +35,10 @@ public:
         return *this;
     }
     template <typename T, typename I>
-    typename enable_if<!is_pair<T>::value, reader &>::type operator>>(pair<T *, I> p)
+    reader &operator>>(pair<T *, I> p)
     {
-        while (--p.second)
+        static_assert(!is_pair<T>::value);
+        while (p.second--)
             operator>>(*p.first++);
         return *this;
     }
@@ -53,6 +57,13 @@ public:
         while (p.second--)
             operator>>(p.first->first),
             operator>>((p.first++)->second);
+        return *this;
+    }
+    template <typename T, typename Alloc>
+    reader &operator>>(vector<T, Alloc> &v)
+    {
+        for (size_t i = 0; i < v.size(); i++)
+            operator>>(v[i]);
         return *this;
     }
 } in;
@@ -84,18 +95,61 @@ public:
         return *this;
     }
     writer &operator<<(const string &s) { return operator<<(s.c_str()); }
-    writer &operator<<(void (*func)(writer &))
+    template <typename Callable>
+    writer &operator<<(Callable func)
     {
         func(*this);
         return *this;
     }
 } out;
 void nl(writer &wr) { wr << "\n"; }
+template <size_t mod, typename T>
+void madd(T &a, ll b)
+{
+    if (mod)
+        a = (b + a) % mod;
+    else
+        a += b;
+}
+template <size_t maxn, typename T = int, size_t mod = 0>
+class segtree
+{
+    T ch[maxn];
+    size_t n;
+
+public:
+    segtree(size_t n = 0) : n(n) {}
+    void resize(size_t siz) { n = siz; }
+    void add(int x, T v)
+    {
+        for (; x <= n; x += (x & -x))
+            madd<mod>(ch[x], v);
+    }
+    T query(int x)
+    {
+        T s = 0;
+        for (; x; x -= x & (-x))
+            madd<mod>(s, ch[x]);
+        return s;
+    }
+    size_t find(T v)
+    {
+        size_t x = 0;
+        for (int i = 63; i >= 0; i--)
+            if (x + (1 << i) <= n && ch[x + (1 << i)] < v)
+                x += 1 << i, v -= ch[x];
+        return x + 1;
+    }
+};
+template <typename T, typename Alloc>
+typename vector<T, Alloc>::iterator maxv(vector<T, Alloc> &v) { return max(v.begin(), v.end()); }
+template <typename T, typename Alloc>
+typename vector<T, Alloc>::iterator minv(vector<T, Alloc> &v) { return min(v.begin(), v.end()); }
 //     Const definitions >>>
-const int maxn = 1e5, mod = 1e9 + 7;
+const int maxn = 1e5 + 7, mod = 1e9 + 7;
 // <<< Const definitions
 template <typename T>
-void add(T &a, ll b) { a = (b + a) % mod; }
+void add(T &a, ll b) { madd<mod>(a, b); }
 template <typename T>
 void upmin(T &a, T b) { a = min(a, b); }
 template <typename T>
@@ -103,11 +157,6 @@ void upmax(T &a, T b) { a = max(a, b); }
 // -=-=-=-=-=-=-=-=-=-=-=-
 int main()
 {
-    pair<int, int> ps[10];
-    int n;
-    in >> n >> make_pair(ps, -n);
-    for (int i = 0; i < n; i++)
-        out << ps[i] << nl;
 
     return 0;
 }
