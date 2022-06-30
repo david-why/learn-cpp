@@ -19,23 +19,15 @@ ll maxpow(ll a, ll b)
 void run(ll (&dp)[maxn][maxn], bitset<maxn> (&istop)[maxn], const int val)
 {
     memset(dp, 0, sizeof(dp));
-    // dp[1][0] = dp[0][1] = 0;
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++)
         {
-            // if (a[i][j])
-            // {
             ll p = maxpow(a[i][j], val);
             ll ft = dp[i - 1][j], fl = dp[i][j - 1];
             if ((ft < fl && i != 1) || j == 1)
                 istop[i][j] = true, dp[i][j] = ft + p;
             else
                 istop[i][j] = false, dp[i][j] = fl + p;
-            // }
-            // else
-            // {
-            //     dp[i][j] = -1e9;
-            // }
         }
 }
 void output(bitset<maxn> (&istop)[maxn])
@@ -52,7 +44,6 @@ void output(bitset<maxn> (&istop)[maxn])
     reverse(s.begin(), s.end());
     cout << s << endl;
 }
-// ll make(ll a) { return a < 0 ? 1 : a; }
 int main()
 {
     cin >> n;
@@ -85,10 +76,8 @@ int main()
         return 0;
     }
 
-    if (c2[n][n] < c5[n][n])
-        cout << ans << endl, output(t2);
-    else
-        cout << ans << endl, output(t5);
+    cout << ans << endl;
+    output(c2[n][n] < c5[n][n] ? t2 : t5);
 
     return 0;
 }
