@@ -74,7 +74,6 @@ int main()
                 break;
             }
         }
-        // cout << "- " << t << " " << p << " " << f << " (" << par[f] << ")" << endl;
         if (f)
         {
             cout << "Possible\n";
