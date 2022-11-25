@@ -26,6 +26,14 @@ int find(int v)
 }
 int main()
 {
+    n = 100;
+    add(1,3);
+    add(2,2);
+    cout<<query(3) << endl;
+    for (int i = 0; i < 10; i++)
+    cout<<find(i)<<endl;
+    // cout<<find(3)<<endl;
+    /*
     int q;
     cin >> n >> q;
     while (q--)
@@ -40,7 +48,7 @@ int main()
         }
         else
             cout << find(x) << endl;
-    }
+    }*/
 
     return 0;
 }

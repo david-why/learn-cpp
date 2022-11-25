@@ -1,0 +1,21 @@
+{
+    "files.associations": {
+        "tuple": "cpp",
+        "barrier": "cpp",
+        "*.tcc": "cpp",
+        "bitset": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "vector": "cpp",
+        "functional": "cpp",
+        "memory": "cpp",
+        "optional": "cpp",
+        "string_view": "cpp",
+        "syncstream": "cpp",
+        "system_error": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp",
+        "type_traits": "cpp"
+    }
+}

@@ -82,6 +82,7 @@ public:
     WRITE(unsigned int, u)
     WRITE(ull, llu)
     WRITE(const char *, s)
+    WRITE(size_t, lu)
 #undef WRITE
 
     template <typename T1, typename T2>
@@ -111,15 +112,20 @@ void madd(T &a, ll b)
     else
         a += b;
 }
-template <size_t maxn, typename T = int, size_t mod = 0>
+template <typename T = int, typename Idx = int, size_t mod = 0>
 class segtree
 {
-    T ch[maxn];
-    size_t n;
+    vector<T> ch;
+    Idx n;
 
 public:
-    segtree(size_t n = 0) : n(n) {}
-    void resize(size_t siz) { n = siz; }
+    segtree(Idx n = 0) { init(n); }
+    void init(Idx n)
+    {
+        this->n = n;
+        ch.clear();
+        ch.resize(n);
+    }
     void add(int x, T v)
     {
         for (; x <= n; x += (x & -x))
@@ -132,19 +138,20 @@ public:
             madd<mod>(s, ch[x]);
         return s;
     }
-    size_t find(T v)
+    T sum(int l, int r) { return query(r) - query(l - 1); }
+    Idx find(T v)
     {
-        size_t x = 0;
+        Idx x = 0;
         for (int i = 63; i >= 0; i--)
-            if (x + (1 << i) <= n && ch[x + (1 << i)] < v)
-                x += 1 << i, v -= ch[x];
+            if (x + (1LL << i) <= n && ch[x + (1LL << i)] < v)
+                x += 1LL << i, v -= ch[x];
         return x + 1;
     }
 };
 template <typename T, typename Alloc>
-typename vector<T, Alloc>::iterator maxv(vector<T, Alloc> &v) { return max(v.begin(), v.end()); }
+typename vector<T, Alloc>::iterator maxup(vector<T, Alloc> &v) { return max(v.begin(), v.end()); }
 template <typename T, typename Alloc>
-typename vector<T, Alloc>::iterator minv(vector<T, Alloc> &v) { return min(v.begin(), v.end()); }
+typename vector<T, Alloc>::iterator minup(vector<T, Alloc> &v) { return min(v.begin(), v.end()); }
 //     Const definitions >>>
 const int maxn = 1e5 + 7, mod = 1e9 + 7;
 // <<< Const definitions
