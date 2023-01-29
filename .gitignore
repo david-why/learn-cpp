@@ -13,3 +13,7 @@ dummy.*
 
 # Input files
 *.in
+
+# nsubmit session
+nsubmit.sess
+
